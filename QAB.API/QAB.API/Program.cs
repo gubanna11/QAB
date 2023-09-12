@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using QAB.Domain.Data;
+using QAB.Dependencies;
+using QAB.Services.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
-
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
-
+builder.Services.ConfigureDependencyInjection(builder.Configuration);
+builder.Services.AddAutoMapper(typeof (DataProfile).Assembly);
 
 var app = builder.Build();
 
