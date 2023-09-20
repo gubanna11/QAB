@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -16,11 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\QAB.Dependencies\QAB.Dependencies.csproj" />
+    <ProjectReference Include="..\QAB.Domain\QAB.Domain.csproj" />
     <ProjectReference Include="..\QAB.Services\QAB.Services.csproj" />
   </ItemGroup>
 

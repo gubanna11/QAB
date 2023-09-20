@@ -21,8 +21,9 @@ namespace QAB.Domain.Data.EntityConfiguration
                     Title = "Title Post",
                     Content = "Content...",
                     Description = "",
-                    IsActive = true,                    
+                    IsActive = true,
                     PublishDate = DateTime.Now,
+                    PublishTime = DateTime.Now.TimeOfDay,
                     CaseTypeId = 1,
                 },
                 new Case() {
@@ -33,6 +34,7 @@ namespace QAB.Domain.Data.EntityConfiguration
                     Description = "",
                     IsActive = true,
                     PublishDate = DateTime.Now,
+                    PublishTime = DateTime.Now.TimeOfDay,
                     CaseTypeId = 2,
                 },
                 new Case() {
@@ -43,6 +45,7 @@ namespace QAB.Domain.Data.EntityConfiguration
                     Description = "",
                     IsActive = true,
                     PublishDate = DateTime.Now,
+                    PublishTime = DateTime.Now.TimeOfDay,
                     CaseTypeId = 2,
                 },
                 new Case() {
@@ -53,6 +56,7 @@ namespace QAB.Domain.Data.EntityConfiguration
                     Description = "",
                     IsActive = false,
                     PublishDate = DateTime.Now,
+                    PublishTime = DateTime.Now.TimeOfDay,
                     CaseTypeId = 2,
                 },
             };
