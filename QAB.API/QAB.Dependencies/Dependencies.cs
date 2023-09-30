@@ -1,12 +1,15 @@
 ﻿
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QAB.Domain.Abstract.Implementations;
 using QAB.Domain.Abstract.Interfaces;
 using QAB.Domain.Data;
+using QAB.Services.Models.Dtos.Case;
 using QAB.Services.Services.Implementations;
 using QAB.Services.Services.Interfaces;
+using QAB.Services.Validators;
 
 namespace QAB.Dependencies
 {
@@ -17,6 +20,7 @@ namespace QAB.Dependencies
             services.ConfigureDatabase(configuration);
             services.ConfigureUnitOfWork();
             services.ConfigureServices();
+            services.ConfigureValidators();
             return services;
         }
 
@@ -36,6 +40,11 @@ namespace QAB.Dependencies
         private static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<ICaseService, CaseService>();
+        }
+
+        private static void ConfigureValidators(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<CaseRequestDto>, CaseRequestDtoValidator>();
         }
         #endregion
     }

@@ -15,10 +15,10 @@ namespace QAB.Domain.Entities
 
         public string AuthorId { get; set; }
 
-        [StringLength(maximumLength: 50)]
+        [StringLength(maximumLength: 500)]
         public string Title { get; set; }
 
-        [StringLength(maximumLength: 500)]
+        [StringLength(maximumLength: 1000)]
         public string? Description { get; set; }
 
         [StringLength(120000, MinimumLength = 50)]
