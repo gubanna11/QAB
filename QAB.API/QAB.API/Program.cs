@@ -2,18 +2,23 @@ using Microsoft.EntityFrameworkCore;
 using QAB.Domain.Data;
 using QAB.Dependencies;
 using QAB.Services.Mapping;
+using FluentValidation.AspNetCore;
+using QAB.Services.Validators;
+using QAB.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureDependencyInjection(builder.Configuration);
 builder.Services.AddAutoMapper(typeof (DataProfile).Assembly);
+builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
 var app = builder.Build();
 
@@ -27,6 +32,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.MapControllers();
 
