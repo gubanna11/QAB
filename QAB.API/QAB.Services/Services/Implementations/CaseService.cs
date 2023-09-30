@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using QAB.Domain.Abstract.Interfaces;
 using QAB.Domain.Data;
@@ -18,15 +19,24 @@ namespace QAB.Services.Services.Implementations
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IValidator<CaseRequestDto> _caseRequestDtoValidator;
 
-        public CaseService(IUnitOfWork unitOfWork, IMapper mapper)
+        public CaseService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<CaseRequestDto> caseRequestDtoValidator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _caseRequestDtoValidator = caseRequestDtoValidator;
         }
 
         public async Task<CaseDto> AddCaseAsync(CaseRequestDto caseRequestDto)
         {
+            var result = _caseRequestDtoValidator.Validate(caseRequestDto);
+            if (!result.IsValid)
+            {
+                string errors = string.Join('\n', result.Errors.Select(e => e.ErrorMessage));
+                throw new Exception("Errors:\n" + errors);
+            }
+
             Case caseEntity = _mapper.Map<Case>(caseRequestDto);
 
             caseEntity.PublishDate = DateTime.Now;
@@ -69,6 +79,13 @@ namespace QAB.Services.Services.Implementations
 
         public async Task<CaseDto> UpdateCase(CaseRequestDto caseRequestDto)
         {
+            var result = _caseRequestDtoValidator.Validate(caseRequestDto);
+            if (!result.IsValid)
+            {
+                string errors = string.Join("\n", result.Errors.Select(e => e.ErrorMessage));
+                throw new Exception("Errors:\n" + errors);
+            }
+
             Case caseEntity = _mapper.Map<Case>(caseRequestDto);
 
             _unitOfWork.GenericRpository<Case>().Update(caseEntity);
