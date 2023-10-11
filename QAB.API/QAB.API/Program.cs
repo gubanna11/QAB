@@ -20,6 +20,16 @@ builder.Services.ConfigureDependencyInjection(builder.Configuration);
 builder.Services.AddAutoMapper(typeof (DataProfile).Assembly);
 builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
+builder.Services.AddCors(options => options.AddPolicy(name: "QAB",
+    policy =>
+    {
+        policy
+        .WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+    }));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +38,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("QAB");
 
 app.UseHttpsRedirection();
 
