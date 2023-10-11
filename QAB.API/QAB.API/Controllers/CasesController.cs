@@ -22,13 +22,13 @@ namespace QAB.API.Controllers
         /// <returns>Returns an object with list of case dtos - cases</returns>
         /// <response code="200">Returns the object with cases</response>
         /// <response code="500">If an error occurs, returns the error details.</response>
-        [HttpGet("cases")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllCases()
         {
-            var cases = await _caseService.GetAllCasesAsync();
-            return new JsonResult(new { Cases = cases });
+            var cases = (await _caseService.GetAllCasesAsync()).ToList();
+            return new JsonResult(cases);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace QAB.API.Controllers
         public async Task<IActionResult> GetCaseById(int id)
         {
             CaseDto caseEntity = await _caseService.GetCaseByIdAsync(id);
-            return new JsonResult(new { Case = caseEntity });
+            return new JsonResult(caseEntity);
         }
 
         /// <summary>
