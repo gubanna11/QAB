@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using QAB.Domain.Abstract.Interfaces;
 using System;
@@ -48,11 +49,9 @@ namespace QAB.Domain.Abstract.Implementations
 
         public void Remove(object id)
         {
-            T? entity = _dbSet.Find(id);
-            if (entity != null)
-            {
-                _dbSet.Remove(entity);
-            }
+            T entity = _dbSet.Find(id);
+            EntityEntry entityEntry = _context.Entry<T>(entity);
+            entityEntry.State = EntityState.Deleted;
         }
 
         public void RemoveRange(IEnumerable<T> entities)

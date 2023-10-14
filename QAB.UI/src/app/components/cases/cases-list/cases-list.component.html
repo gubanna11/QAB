@@ -1,3 +1,15 @@
-<div *ngFor="let case of cases">
-    <p>{{case.title}}</p>
+<div class="container mt-4">
+    <div class="list-group" *ngFor="let case of cases">
+        <a class="list-group-item list-group-item-action flex-column align-items-start mb-2">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ case.title }}</h5>
+            <div class="d-flex gap-3">
+                <small class="text-muted">{{ case.publishDate | date }}</small>
+                <i class="bi bi-trash-fill" (click)="deleteCase(case.id)"></i>
+            </div>           
+          </div>
+          <p class="mb-1">{{ case.description }}</p>
+          <small class="text-muted">{{ case.content | customSlice : 45}}</small>
+        </a>        
+    </div>
 </div>

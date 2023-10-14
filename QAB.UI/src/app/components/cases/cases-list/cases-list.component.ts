@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import CaseDto from 'src/app/models/case/caseDto';
 import { CasesService } from 'src/app/services/cases.service';
+
+import * as toastr from 'toastr';
 
 @Component({
   selector: 'app-cases-list',
@@ -12,18 +13,31 @@ export class CasesListComponent implements OnInit{
   cases: CaseDto[] = [];
 
   constructor(private casesService: CasesService,
-    private toastr: ToastrService,
     ){}
 
   ngOnInit(): void {
+    this.getAllCases();
+  }
+
+  deleteCase(id: number){
+    this.casesService.deleteCase(id).subscribe({
+      next: (result) => {
+        this.getAllCases();
+        toastr.success(result.message);        
+      },
+      error: (err) => {
+        toastr.error(err.detail);
+      }
+    })
+  }
+
+  getAllCases(){
     this.casesService.getAll().subscribe({
-      next: (cases:CaseDto[]) => {
-        console.log(cases);
-        
+      next: (cases:CaseDto[]) => {        
         this.cases = cases;      
       },
       error: (err) => {
-        this.toastr.error(err.message);
+        toastr.error(err.message);
       }
     })
   }

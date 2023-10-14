@@ -7,22 +7,23 @@ import { CasesListComponent } from './components/cases/cases-list/cases-list.com
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
-import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomSlicePipe } from './pipes/custom-slice.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     CasesListComponent,
-    HeaderComponent
+    HeaderComponent,
+    CustomSlicePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,  
-    ToastrModule.forRoot(), BrowserAnimationsModule,  
+    ReactiveFormsModule,
+    BrowserAnimationsModule,  
   ],
   providers: [],
   bootstrap: [AppComponent]

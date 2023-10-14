@@ -88,9 +88,9 @@ namespace QAB.API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult DeleteCase(int id)
+        public async Task<IActionResult> DeleteCase(int id)
         {
-            _caseService.RemoveCase(id);
+            await _caseService.RemoveCaseAsync(id);
             return new JsonResult(new { Message = "Deleted successfully!"});
         }
     }

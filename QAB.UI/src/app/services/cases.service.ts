@@ -15,4 +15,8 @@ export class CasesService {
   public getAll():Observable<CaseDto[]>{
     return this.http.get<CaseDto[]>(`${environment.apiUrl}/${this.url}`);
   }
+
+  public deleteCase(id: number):Observable<any>{
+    return this.http.delete<any>(`${environment.apiUrl}/${this.url}/${id}`);
+  }
 }

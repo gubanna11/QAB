@@ -71,7 +71,7 @@ namespace QAB.Services.Services.Implementations
             return caseDto;
         }
 
-        public async void RemoveCase(int id)
+        public async Task RemoveCaseAsync(int id)
         {
             _unitOfWork.GenericRpository<Case>().Remove(id);
             await _unitOfWork.SaveChangesAsync();
@@ -92,7 +92,7 @@ namespace QAB.Services.Services.Implementations
             await _unitOfWork.SaveChangesAsync();
 
             CaseDto caseDto = _mapper.Map<CaseDto>(caseEntity);
-            
+
             return caseDto;
         }
     }
