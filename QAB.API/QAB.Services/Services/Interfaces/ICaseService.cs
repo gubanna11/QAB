@@ -14,6 +14,6 @@ namespace QAB.Services.Services.Interfaces
         Task<CaseDto> GetCaseByIdAsync(int id);
         Task<IEnumerable<CaseDto>> GetAllCasesAsync();
         Task<CaseDto> UpdateCase(CaseRequestDto caseModel);
-        void RemoveCase(int id);
+        Task RemoveCaseAsync(int id);
     }
 }
